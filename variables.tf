@@ -9,3 +9,9 @@ variable "project_name" {
   type        = string
   default     = "securevault"
 }
+
+variable "frontend_origin" {
+  description = "Allowed browser origin for the SecureVault frontend. Default is the local frontend served over localhost."
+  type        = string
+  default     = "http://localhost:8080"
+}

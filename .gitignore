@@ -1,13 +1,69 @@
+# Terraform State & Local Files
 .terraform/
+.terraform.lock.hcl
 *.tfstate
 *.tfstate.*
 terraform.tfstate
 terraform.tfstate.*
-crash.log
-crash.*.log
 *.tfvars
 *.tfvars.json
+tfplan
+*.tfplan
+tfplan.*
+crash.log
+crash.*.log
+
+# Environment & Configuration Files
 .env
+.env.local
+.env.development
+.env.test
+.env.production
 .env.*
-*.env
-.terraform.lock.hcl
+!.env.example
+!.env.template
+
+# Private Data & CLI Payload Files
+owner-values.json
+file-key.json
+test-file-key.json
+*-key.json
+*.key.json
+*-values.json
+*.values.json
+*.secret.json
+credentials.json
+secrets/
+
+# Build, Zip & Package Artifacts
+*.zip
+lambda-packages/
+delete-deployed/
+delete-zip-check/
+files-zip-check/
+*-check/
+*-deployed/
+dist/
+build/
+
+# Keys & Certificates
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+
+# Logs & Dependencies
+*.log
+logs/
+node_modules/
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Generated Local Files
+*.local
+
