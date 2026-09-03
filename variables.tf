@@ -11,7 +11,16 @@ variable "project_name" {
 }
 
 variable "frontend_origin" {
-  description = "Allowed browser origin for the SecureVault frontend. Default is the local frontend served over localhost."
+  description = "Allowed browser origin for the SecureVault frontend."
   type        = string
-  default     = "http://localhost:8080"
+  default     = "https://main.d3a1aca3sc3925.amplifyapp.com"
+}
+
+variable "allowed_origins" {
+  description = "List of allowed browser origins for SecureVault frontend and S3 CORS."
+  type        = list(string)
+  default     = [
+    "http://localhost:8080",
+    "https://main.d3a1aca3sc3925.amplifyapp.com"
+  ]
 }

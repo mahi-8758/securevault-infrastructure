@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "files" {
   cors_rule {
     allowed_headers = ["*"]
     allowed_methods = ["PUT", "GET", "HEAD"]
-    allowed_origins = ["http://localhost:8080"]
+    allowed_origins = var.allowed_origins
     expose_headers  = ["ETag"]
     max_age_seconds = 3000
   }

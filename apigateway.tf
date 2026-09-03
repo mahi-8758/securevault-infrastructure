@@ -381,7 +381,7 @@ resource "aws_api_gateway_integration_response" "upload_options_200" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"  = "'${var.frontend_origin}'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
-    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,OPTIONS'"
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
   }
 }
 
@@ -394,7 +394,7 @@ resource "aws_api_gateway_integration_response" "files_options_200" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"  = "'${var.frontend_origin}'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
-    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,OPTIONS'"
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
   }
 }
 
@@ -407,7 +407,7 @@ resource "aws_api_gateway_integration_response" "download_options_200" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"  = "'${var.frontend_origin}'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
-    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,OPTIONS'"
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
   }
 }
 
@@ -420,7 +420,7 @@ resource "aws_api_gateway_integration_response" "delete_options_200" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"  = "'${var.frontend_origin}'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
-    "method.response.header.Access-Control-Allow-Methods" = "'GET,DELETE,OPTIONS'"
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
   }
 }
 
@@ -433,7 +433,7 @@ resource "aws_api_gateway_integration_response" "audit_options_200" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"  = "'${var.frontend_origin}'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
-    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,OPTIONS'"
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
   }
 }
 
