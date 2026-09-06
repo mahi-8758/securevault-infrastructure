@@ -218,6 +218,10 @@ resource "aws_api_gateway_method" "upload_options" {
   http_method      = "OPTIONS"
   authorization    = "NONE"
   api_key_required = false
+
+  request_parameters = {
+    "method.request.header.Origin" = false
+  }
 }
 
 resource "aws_api_gateway_method" "files_options" {
@@ -226,6 +230,10 @@ resource "aws_api_gateway_method" "files_options" {
   http_method      = "OPTIONS"
   authorization    = "NONE"
   api_key_required = false
+
+  request_parameters = {
+    "method.request.header.Origin" = false
+  }
 }
 
 resource "aws_api_gateway_method" "download_options" {
@@ -234,6 +242,10 @@ resource "aws_api_gateway_method" "download_options" {
   http_method      = "OPTIONS"
   authorization    = "NONE"
   api_key_required = false
+
+  request_parameters = {
+    "method.request.header.Origin" = false
+  }
 }
 
 resource "aws_api_gateway_method" "delete_options" {
@@ -242,6 +254,10 @@ resource "aws_api_gateway_method" "delete_options" {
   http_method      = "OPTIONS"
   authorization    = "NONE"
   api_key_required = false
+
+  request_parameters = {
+    "method.request.header.Origin" = false
+  }
 }
 
 resource "aws_api_gateway_method" "audit_options" {
@@ -250,6 +266,10 @@ resource "aws_api_gateway_method" "audit_options" {
   http_method      = "OPTIONS"
   authorization    = "NONE"
   api_key_required = false
+
+  request_parameters = {
+    "method.request.header.Origin" = false
+  }
 }
 
 resource "aws_api_gateway_integration" "upload_options" {
@@ -379,7 +399,7 @@ resource "aws_api_gateway_integration_response" "upload_options_200" {
   status_code = aws_api_gateway_method_response.upload_options_200.status_code
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"  = "'${var.frontend_origin}'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
     "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
   }
@@ -392,7 +412,7 @@ resource "aws_api_gateway_integration_response" "files_options_200" {
   status_code = aws_api_gateway_method_response.files_options_200.status_code
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"  = "'${var.frontend_origin}'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
     "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
   }
@@ -405,7 +425,7 @@ resource "aws_api_gateway_integration_response" "download_options_200" {
   status_code = aws_api_gateway_method_response.download_options_200.status_code
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"  = "'${var.frontend_origin}'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
     "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
   }
@@ -418,7 +438,7 @@ resource "aws_api_gateway_integration_response" "delete_options_200" {
   status_code = aws_api_gateway_method_response.delete_options_200.status_code
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"  = "'${var.frontend_origin}'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
     "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
   }
@@ -431,9 +451,31 @@ resource "aws_api_gateway_integration_response" "audit_options_200" {
   status_code = aws_api_gateway_method_response.audit_options_200.status_code
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"  = "'${var.frontend_origin}'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
     "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
+  }
+}
+
+resource "aws_api_gateway_gateway_response" "response_4xx" {
+  rest_api_id   = aws_api_gateway_rest_api.securevault.id
+  response_type = "DEFAULT_4XX"
+
+  response_parameters = {
+    "gatewayresponse.header.Access-Control-Allow-Origin"  = "'*'"
+    "gatewayresponse.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
+    "gatewayresponse.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
+  }
+}
+
+resource "aws_api_gateway_gateway_response" "response_5xx" {
+  rest_api_id   = aws_api_gateway_rest_api.securevault.id
+  response_type = "DEFAULT_5XX"
+
+  response_parameters = {
+    "gatewayresponse.header.Access-Control-Allow-Origin"  = "'*'"
+    "gatewayresponse.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization'"
+    "gatewayresponse.header.Access-Control-Allow-Methods" = "'GET,POST,DELETE,OPTIONS'"
   }
 }
 
@@ -487,10 +529,13 @@ resource "aws_api_gateway_deployment" "securevault" {
       aws_api_gateway_method.download_options.id,
       aws_api_gateway_method.delete_options.id,
       aws_api_gateway_method.audit_options.id,
-      aws_api_gateway_method_response.download_options_200.id,
+      aws_api_gateway_integration_response.upload_options_200.id,
+      aws_api_gateway_integration_response.files_options_200.id,
       aws_api_gateway_integration_response.download_options_200.id,
-      aws_api_gateway_method_response.delete_options_200.id,
       aws_api_gateway_integration_response.delete_options_200.id,
+      aws_api_gateway_integration_response.audit_options_200.id,
+      aws_api_gateway_gateway_response.response_4xx.id,
+      aws_api_gateway_gateway_response.response_5xx.id,
     ]))
   }
 }
