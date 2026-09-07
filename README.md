@@ -5,9 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://youtu.be/W42Mjil9OKo">🎥 Project Demo</a> •
-  <a href="https://github.com/mahi-8758/securevault-frontend">Frontend</a> •
-  <a href="https://github.com/mahi-8758/securevault-backend">Backend</a>
+  <a href="https://youtu.be/W42Mjil9OKo">🎥 Project Demo</a> 
 </p>
 
 ---
